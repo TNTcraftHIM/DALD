@@ -18,7 +18,7 @@ def eval_fastdetect(args):
         scoring_model = PeftModel.from_pretrained(scoring_model, args.weight_path)
 
     scoring_model.eval()
-    reference_model_name = "llama2-7b"
+    reference_model_name = args.reference_model_name
     device = args.device
     cache_dir = args.cache_dir
     # dataset = "WildChat"
@@ -100,6 +100,7 @@ def eval_fastdetect(args):
     
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument('--reference_model_name', type=str, default="llama2-7b")
     parser.add_argument('--scoring_model_name', type=str, default="llama2-7b")
     parser.add_argument('--weight_path', type=str, default="./ckpt/checkpoint-1860")
     parser.add_argument('--target_model_name', type=str, default="ChatGPT")
