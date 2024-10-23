@@ -1,4 +1,3 @@
-from datasets import load_dataset
 import argparse
 
 from transformers import (
@@ -28,11 +27,8 @@ from peft import (
     set_peft_model_state_dict,
 )
 from model import load_model, load_tokenizer
-from fast_detect_gpt import evaluation_sft_model
-from dna_gpt import evaluation_sft_model_dna
-from detect_gpt import evaluation_sft_model_detect
 import torch
-import datasets
+from datasets import load_dataset
 
 def filter_by_english_and_llama3_mistral(sample):
     return len(sample["conversation"][0]["content"]) < 480
@@ -157,7 +153,7 @@ def train(args):
     tokenized_dataset = tokenized_dataset.remove_columns(sft_training_data.column_names)
 
 
-    model = load_model(args.scoring_model_name, device="cpu", cache_dir="./ckpt")
+    model = load_model(args.scoring_model_name, device="cpu", cache_dir=args.cache_dir)
     modules = {
         "llama3-8b":["q_proj", "v_proj", "k_proj", "o_proj", "gate_proj", "down_proj", "up_proj"],
         "llama2-7b":["q_proj", "v_proj", "k_proj", "o_proj", "gate_proj", "down_proj", "up_proj"],
@@ -180,7 +176,7 @@ def train(args):
 
     #Train and Evaluate
     args = TrainingArguments(
-        output_dir="./ckpt",
+        output_dir=args.output_model_dir,
         remove_unused_columns=False,
         save_strategy="epoch",
         learning_rate=1e-4,
@@ -211,6 +207,7 @@ if __name__ == "__main__":
     parser.add_argument('--target_model_name', type=str, default="GPT-4")
     parser.add_argument('--num_samples', type=int, default=5000)
     parser.add_argument('--scoring_model_name', type=str, default="llama3-8b")
+    parser.add_argument('--output_model_dir', type=str, default="./ckpt")
     
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--device', type=str, default="cuda")
