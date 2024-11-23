@@ -13,7 +13,7 @@ import json
 from data_builder import load_data
 from model import load_tokenizer, load_model
 from metrics import get_roc_metrics, get_precision_recall_metrics
-from raid import run_detection, run_evaluation
+# from raid import run_detection, run_evaluation
 import pandas as pd
 
 def get_samples(logits, labels):

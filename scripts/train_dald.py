@@ -157,7 +157,7 @@ def train(args):
     modules = {
         "llama3-8b":["q_proj", "v_proj", "k_proj", "o_proj", "gate_proj", "down_proj", "up_proj"],
         "llama2-7b":["q_proj", "v_proj", "k_proj", "o_proj", "gate_proj", "down_proj", "up_proj"],
-        "Gpt-neo":["q_proj", "v_proj", "k_proj", "out_proj", "c_fc", " c_proj"]
+        "gpt-neo-2.7B":["q_proj", "v_proj", "k_proj", "out_proj", "c_fc", " c_proj"]
     }
 
     # load LoRA model
