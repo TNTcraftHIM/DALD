@@ -165,6 +165,7 @@ def eval_fastdetect(args):
     print("avg_auroc: {:.4f}".format(sum(auroc_list) / len(auroc_list))
           + "; ".join(["std_auroc: {:.4f}".format(np.std(auroc_list))]))
     print("all_auroc: ", all_auroc)
+    print("auroc_list: ", auroc_list)
     # results
 
     dataset_file = args.eval_dataset_file.split("/")[-1]
