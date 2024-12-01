@@ -1,0 +1,1 @@
+python scripts/eval_dald_csv.py --reference_model_name llama3-8b --scoring_model_name llama3-8b --weight_path ./ckpt/checkpoint-125 --target_model_name GPT-4 --eval_dataset_name Pubmed --eval_dataset_file ./exp_gpt4-0613/data/pubmed_gpt-4-0613 --discrepancy_analytic
